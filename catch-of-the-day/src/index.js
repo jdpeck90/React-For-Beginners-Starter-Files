@@ -1,11 +1,15 @@
 // let's go!
 import React from 'react';
-import { render } from 'react-dom'; //<-- only render component of package
-// import ReactDom from 'react-dom'; <--Full package
-import './css/style.css's
-
+import { render } from 'react-dom';
+// import { render } from 'react-dom'; //<-- only render component of package
+// // import ReactDom from 'react-dom'; <--Full package
+// import App from './components/app';
+import './css/style.css';
+import App from './components/App';
 import StorePicker from './components/StorePicker';
 
 
 
-render (<StorePicker/>, document.querySelector('#main'));
+
+
+render(<App/>, document.querySelector('#main'))
