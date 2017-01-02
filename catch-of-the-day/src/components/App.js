@@ -12,6 +12,7 @@ class App extends React.Component {
     super();
     //get Inital State
     this.addFish = this.addFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
 
@@ -22,15 +23,36 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    //this runs right before the <App> is rendered
     this.ref = base.syncState(this.props.params.storeId+'/fishes',
+
     {
       context: this,
       state: 'fishes'
     });
+
+  //check if there is any order in localStorage
+  const localStorageRef = localStorage.getItem('order-'+this.props.params.storeId);
+
+
+// cjeck if there is any order in localStorage
+  if(localStorageRef) {
+    console.log(localStorageRef,'local')
+    this.setState({
+      order: JSON.parse(localStorageRef)
+    });
   }
+}
+
+
 
   componentWillUnmount (){
     base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+      localStorage.setItem('order-'+this.props.params.storeId,
+        JSON.stringify(nextState.order))
   }
 
   addFish(fish){
@@ -44,6 +66,15 @@ class App extends React.Component {
     this.setState({fishes:fishes})
 
   }
+
+  updateFish(key, updatedFish){
+    const fishes = {...this.state.fishes};
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
+    }
+
+
+
 
   loadSamples() {
     this.setState({
@@ -74,8 +105,17 @@ class App extends React.Component {
             }
           </ul>
         </div>
-          <Order fishes={this.state.fishes} order={this.state.order} />
-          <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+          <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+          params={this.props.params}
+          />
+          <Inventory
+          addFish={this.addFish}
+          loadSamples={this.loadSamples}
+          fishes={this.state.fishes}
+          updateFish={this.updateFish}
+          />
       </div>
       )
   }

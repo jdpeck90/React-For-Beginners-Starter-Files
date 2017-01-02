@@ -28,8 +28,7 @@ renderOrder(key) {
     const total = orderIds.reduce((prevTotal, key) => {
       const fish = this.props.fishes[key];
       const count = this.props.order[key];
-      const isAvailable = fish && fish.status === ' available';
-      console.log(orderIds)
+      const isAvailable = fish && fish.status === 'available';
       if(isAvailable) {
         return prevTotal + (count * fish.price || 0)
       }
@@ -42,7 +41,7 @@ renderOrder(key) {
         {orderIds.map(this.renderOrder)}
           <li className="total">
             <strong>Total:</strong>
-              {total}
+              {formatPrice(total)}
           </li>
         </ul>
 
