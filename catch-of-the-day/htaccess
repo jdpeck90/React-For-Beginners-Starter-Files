@@ -1,0 +1,13 @@
+.htaccess <---actual file name, hidden file
+
+----------------Text in File----------------
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+
+
+----------------OTHER NOTES----------------
+Can also server this app via NGINX
