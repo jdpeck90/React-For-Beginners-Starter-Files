@@ -24,7 +24,7 @@ renderOrder(key) {
       className="count"
       transitionName="count"
       transitionEnterTimeout="250"
-      transitionLeaveTimeout="250"
+      transitionLeaveTimeout="25 0"
     >
     <span key={count}>{count}</span>
     </CSSTransitionGroup>
@@ -54,8 +54,8 @@ renderOrder(key) {
          className="order"
          component="ul"
          transitionName="order"
-         transitionEnterTimeout={2000}
-         transitionLeaveTimeout={2000}
+         transitionEnterTimeout={500}
+         transitionLeaveTimeout={500}
          >
         {orderIds.map(this.renderOrder)}
           <li className="total">
@@ -68,6 +68,12 @@ renderOrder(key) {
       </div>
       )
   }
+}
+
+Order.propType = {
+fishes: React.PropTypes.object.isRequired,
+order: React.PropTypes.object.isRequired,
+removeFromOrder: React.PropTypes.func.isRequired,
 }
 
 export default Order;
